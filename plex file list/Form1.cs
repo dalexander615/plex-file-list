@@ -48,7 +48,7 @@ namespace plex_file_list
         public void ListFiles(string directoryPath)
         {
             DirectoryInfo directoryInfo = new DirectoryInfo(directoryPath);
-            FileStream fileStream = null;
+            //FileStream fileStream = null;
             if (directoryInfo.Exists)
             {
                 FileInfo[] fileInfo1 = directoryInfo.GetFiles();
