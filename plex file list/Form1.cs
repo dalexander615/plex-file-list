@@ -79,22 +79,41 @@ namespace plex_file_list
             {
                 FileInfo[] fileInfo1 = directoryInfo.GetFiles();
                 DirectoryInfo[] subdirectoryInfo = directoryInfo.GetDirectories();
-                foreach (DirectoryInfo subDirectory in subdirectoryInfo)
+                /*foreach (DirectoryInfo subDirectory in subdirectoryInfo)
                 {
                     ListFiles(subDirectory.FullName);
-                }
+                }*/
                 foreach (FileInfo file1 in fileInfo1)
                 {
                     //string fileName1 = Path.GetFileNameWithoutExtension(file1.ToString());
-                    string fileName1 = Path.GetDirectoryName(file1.ToString());
-                    ListViewItem item = new ListViewItem(fileName1);
-                    item.Tag = file1.ToString();
+                    string fileName1 = Path.GetFullPath(file1.ToString());
+                    //string fileName1 = Path.GetDirectoryName(file1.ToString());
+                    ListViewItem item = new ListViewItem();
+                    //item.Tag = file1.ToString();
 
                     //listView1.Items.Add(item);
                     listView1.Items.Add(fileName1);
+                    
                     //listView1.Items[0].SubItems[1].Text = s;
 
                 }
+            }
+        }
+
+        public void ListFiles3(string dirPath)
+        {
+            DirectoryInfo di = new DirectoryInfo(dirPath);
+            FileInfo[] rgFiles = di.GetFiles("*.mp3", SearchOption.AllDirectories);
+            foreach (FileInfo fi in rgFiles)
+            {
+                ListViewItem Item = new ListViewItem();
+                Item.Text = fi.Name;
+                Item.SubItems.Add(fi.DirectoryName);
+                Item.SubItems.Add(fi.p);
+                Item.SubItems.Add(tagFile.Tag.Album);
+                Item.SubItems.Add(fi.DirectoryName);
+                lstFileList.Items.Add(Item);
+                
             }
         }
         // list files
