@@ -59,18 +59,53 @@ namespace plex_file_list
                 }
                 foreach (FileInfo file1 in fileInfo1)
                 {
-                    string fileName1 = Path.GetFileNameWithoutExtension(file1);
+                    string fileName1 = Path.GetFileNameWithoutExtension(file1.ToString());
+                    //string fileName1 = Path.GetFullPath(file1.ToString());
                     ListViewItem item = new ListViewItem(fileName1);
                     item.Tag = file1.ToString();
 
                     listView1.Items.Add(item);
+                    //listView1.Items.Add(ipath);
+                    //listView1.Items[0].SubItems[1].Text = s;
+
+                }
+            }
+        }
+        public void ListFiles2(string directoryPath)
+        {
+            DirectoryInfo directoryInfo = new DirectoryInfo(directoryPath);
+            //FileStream fileStream = null;
+            if (directoryInfo.Exists)
+            {
+                FileInfo[] fileInfo1 = directoryInfo.GetFiles();
+                DirectoryInfo[] subdirectoryInfo = directoryInfo.GetDirectories();
+                foreach (DirectoryInfo subDirectory in subdirectoryInfo)
+                {
+                    ListFiles(subDirectory.FullName);
+                }
+                foreach (FileInfo file1 in fileInfo1)
+                {
+                    //string fileName1 = Path.GetFileNameWithoutExtension(file1.ToString());
+                    string fileName1 = Path.GetDirectoryName(file1.ToString());
+                    ListViewItem item = new ListViewItem(fileName1);
+                    item.Tag = file1.ToString();
+
+                    //listView1.Items.Add(item);
+                    listView1.Items.Add(fileName1);
+                    //listView1.Items[0].SubItems[1].Text = s;
+
                 }
             }
         }
         // list files
         private void button2_Click(object sender, EventArgs e)
         {
-            ListFiles("c:\\Temp");
+            ListFiles(@"C:\Users\d_roc\Downloads");
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ListFiles2(@"C:\Users\d_roc\Downloads");
         }
     }
 }
