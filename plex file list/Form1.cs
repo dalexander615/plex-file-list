@@ -103,16 +103,15 @@ namespace plex_file_list
         public void ListFiles3(string dirPath)
         {
             DirectoryInfo di = new DirectoryInfo(dirPath);
-            FileInfo[] rgFiles = di.GetFiles("*.mp3", SearchOption.AllDirectories);
+            FileInfo[] rgFiles = di.GetFiles("*.*", SearchOption.AllDirectories);
             foreach (FileInfo fi in rgFiles)
             {
                 ListViewItem Item = new ListViewItem();
                 Item.Text = fi.Name;
                 Item.SubItems.Add(fi.DirectoryName);
-                Item.SubItems.Add(fi.p);
-                Item.SubItems.Add(tagFile.Tag.Album);
-                Item.SubItems.Add(fi.DirectoryName);
-                lstFileList.Items.Add(Item);
+                //Item.SubItems.Add(fi.FullName);
+                Item.SubItems.Add(fi.Length.ToString());
+                listView1.Items.Add(Item);
                 
             }
         }
@@ -124,7 +123,7 @@ namespace plex_file_list
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ListFiles2(@"C:\Users\d_roc\Downloads");
+            ListFiles3(@"C:\Users\d_roc\Downloads");
         }
     }
 }
