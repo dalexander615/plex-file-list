@@ -110,7 +110,9 @@ namespace plex_file_list
                 Item.Text = fi.Name;
                 Item.SubItems.Add(fi.DirectoryName);
                 //Item.SubItems.Add(fi.FullName);
-                Item.SubItems.Add(fi.Length.ToString());
+                long fisize = fi.Length / 1048576;
+                //Item.SubItems.Add(fi.Length.ToString());
+                Item.SubItems.Add(fisize.ToString());
                 listView1.Items.Add(Item);
                 
             }
