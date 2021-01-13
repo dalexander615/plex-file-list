@@ -100,8 +100,10 @@ namespace plex_file_list
             }
         }
 
+        //This works
         public void ListFiles3(string dirPath)
         {
+
             DirectoryInfo di = new DirectoryInfo(dirPath);
             FileInfo[] rgFiles = di.GetFiles("*.*", SearchOption.AllDirectories);
             foreach (FileInfo fi in rgFiles)
