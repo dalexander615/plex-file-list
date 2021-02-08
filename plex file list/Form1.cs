@@ -129,6 +129,46 @@ namespace plex_file_list
         {
             ListFiles3(@"C:\Users\d_roc\Downloads");
         }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //listView1 is nothing but the listview control name
+                string[] st = new string[listView1.Columns.Count];
+                DirectoryInfo di = new DirectoryInfo(@"c:\PDFExtraction\");
+                if (di.Exists == false)
+                    di.Create();
+                StreamWriter sw = new StreamWriter(@"c:\PDFExtraction\Test.xls", false);
+                sw.AutoFlush = true;
+                for (int col = 0; col < listView1.Columns.Count; col++)
+                {
+                    sw.Write("\t" + listView1.Columns[col].Text.ToString());
+                }
+
+                int rowIndex = 1;
+                int row = 0;
+                string st1 = "";
+                for (row = 0; row < listView1.Items.Count; row++)
+                {
+                    if (rowIndex <= listView1.Items.Count)
+                        rowIndex++;
+                    st1 = "\n";
+                    for (int col = 0; col < listView1.Columns.Count; col++)
+                    {
+                        st1 = st1 + "\t" + "'" + listView1.Items[row].SubItems[col].Text.ToString();
+                    }
+                    sw.WriteLine(st1);
+                }
+                sw.Close();
+                FileInfo fil = new FileInfo(@"c:\PDFExtraction\Test.xls");
+                if (fil.Exists == true)
+                    MessageBox.Show("Process Completed", "Export to Excel", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+            }
+        }
     }
 }
 
